@@ -1,7 +1,15 @@
 from pytube import YouTube
-from moviepy.editor import VideoFileClip
-import os
+from moviepy import VideoFileClip
 
+def baixar_video_mp4(url, pasta_destino):
+    try:
+        yt = YouTube(url)
+        video = yt.streams.filter(file_extension='mp4', progressive=True).get_highest_resolution()
+        print(f"Baixando vídeo: {yt.title}")
+        caminho_video = video.download(output_path=pasta_destino)
+        print(f"Vídeo baixado com sucesso em: {caminho_video}")
+    except Exception as e:
+        print(f"Erro ao baixar vídeo: {e}")
 
 
 def converter_para_mp3(caminho_video, pasta_destino):
